@@ -29,7 +29,7 @@ Route::middleware([
     Route::post('create', [ActivityController::class, 'store']);
 
     Route::get('/activity/{id}/change', [ActivityController::class, 'edit'])->name('edit');
-    Route::put('/activity/{activity}', [ActivityController::class, 'update']);
+    Route::put('/activity/{activity}', [ActivityController::class, 'update'])->name('update');
 
     Route::delete('/activity/{activity}', [ActivityController::class, 'destroy'])->name('destroy');
 

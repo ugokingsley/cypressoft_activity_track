@@ -57,23 +57,18 @@ class ActivityController extends Controller
     public function update(Request $request, ActivityCalendar $activity)
     {
         $user = $request->user();
-        $data = $request->validate([
+        $data = $this->validate($request, [
+            'activity_day' => 'required',
             'title' => 'required',
             'description' => 'required',
             'image' => 'nullable|string',
             'user_id' => 'exists:users,id',
         ]);
         $data['user_id'] = $user->id;
-        if($request->file('image')){
-            $file= $request->file('image');
-            $filename= date('YmdHi').$file->getClientOriginalName();
-            $file-> move(public_path('public/Image'), $filename);
-            $data['image']= $filename;
-        }
 
-        $activity->update($data);
+        $activity->update($request->all());
+
         return redirect()->route('activity')->with('success','Added Activity!');
-        //return response()->json($activity);
     }
 
 
@@ -85,7 +80,6 @@ class ActivityController extends Controller
         }
         $activity->delete();
         return redirect()->route('activity');
-        //return response('', 204);
     }
 
 
