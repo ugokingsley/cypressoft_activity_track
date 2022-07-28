@@ -14,8 +14,10 @@
                 <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                     {{ __('Dashboard') }}
                 </x-jet-nav-link>
+                <x-jet-nav-link href="{{ route('activity') }}" :active="request()->routeIs('activity.index')">
+                    {{ __('Activity') }}
+                </x-jet-nav-link>
             </ul>
-
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav align-items-baseline">
                 <!-- Teams Dropdown -->

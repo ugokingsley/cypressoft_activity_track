@@ -9,6 +9,9 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
+
 
 class User extends Authenticatable
 {
@@ -17,6 +20,27 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use LogsActivity;
+
+
+    protected static $logAttributes = ['id','name','email', 'updated_at'];
+
+    protected static $logName = 'userAuth';
+
+    protected static $logOnlyDirty = true;
+
+    protected static $recordEvents = ['created','updated','deleted'];
+
+    public function getDescriptionForEvent(string $eventName):string{
+        return "user {$eventName}";
+    }
+
+    function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->logOnly(['id','name','email', 'created_at']);
+        // Chain fluent methods for configuration options
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -58,4 +82,20 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        self::created(function (User $user) {
+            if (!$user->roles()->get()->contains(2)) {
+                $user->roles()->attach(2);
+            }
+        });
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
 }

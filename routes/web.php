@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\ActivityCalenderController;
+use App\Http\Controllers\ActivityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,19 @@ Route::middleware([
     'verified'
 ])->group(function () {
 
-    Route::get('/view-transaction', [TransactionController::class, 'index']);
+    Route::get('create', [ActivityController::class, 'create'])->name('created');
+    Route::post('create', [ActivityController::class, 'store']);
+
+    Route::get('/activity/{id}/change', [ActivityController::class, 'edit'])->name('edit');
+    Route::put('/activity/{activity}', [ActivityController::class, 'update']);
+
+    Route::delete('/activity/{activity}', [ActivityController::class, 'destroy'])->name('destroy');
+
+
+    Route::get('activity', [ActivityController::class, 'index'])->name('activity');
+    Route::get('dashboard', [ActivityCalenderController::class, 'index'])->name('dashboard');
+    //Route::post('calendar-crud-ajax', [ActivityCalenderController::class, 'calendarActivity']);
+
+
 });
-Route::get('/dashboard', [TransactionController::class, 'index'])->name('dashboard');
 

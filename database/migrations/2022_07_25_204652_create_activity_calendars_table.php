@@ -13,16 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('activity_calendars', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\User::class, 'user_id');
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->string('image', 255);
             $table->timestamps();
-            $table->string('customer_number');
-            $table->string('meter_number');
-            $table->string('receipt_number');
-            $table->string('account_type');
-            $table->bigInteger('amount');
-            $table->string('payment_date_time');
-            $table->tinyInteger('status')->default(0);
         });
     }
 
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('activity_calendars');
     }
 };
