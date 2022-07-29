@@ -35,8 +35,9 @@ Route::middleware([
 
 
     Route::get('activity', [ActivityController::class, 'index'])->name('activity');
+    Route::get('admin-activity', [ActivityController::class, 'admin_index'])->name('admin-activity');
+
     Route::get('dashboard', [ActivityCalenderController::class, 'index'])->name('dashboard');
-    //Route::post('calendar-crud-ajax', [ActivityCalenderController::class, 'calendarActivity']);
 
 
 });

@@ -11,9 +11,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
-                <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                    {{ __('Dashboard') }}
+                @can('admin_access')
+                <x-jet-nav-link href="{{ route('admin-activity') }}" :active="request()->routeIs('activity.admin_index')">
+                    {{ __('Admin Dashboard') }}
                 </x-jet-nav-link>
+                @endcan
                 <x-jet-nav-link href="{{ route('activity') }}" :active="request()->routeIs('activity.index')">
                     {{ __('Activity') }}
                 </x-jet-nav-link>
