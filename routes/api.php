@@ -26,4 +26,3 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::post('/register', [APIAuthController::class, 'register']);
 Route::post('/login', [APIAuthController::class, 'login']);
-Route::get('/all_logs', [ActivityLogController::class, 'all_activity_log']);

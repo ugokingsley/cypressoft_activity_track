@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 class APIAuthController extends Controller
 {
+    /**
+     * register as a user via API
+     * @param \App\Models\User $users
+     * @return $users
+     */
+
     public function register(Request $request){
         $validated = $request->validate([
                             'name' => 'required|string|max:255',
@@ -28,6 +34,13 @@ class APIAuthController extends Controller
                     'token_type' => 'Bearer',
         ]);
     }
+
+    /**
+     * user login via API
+     * can view
+     * @param \App\Models\User $users
+     * @return $users
+     */
 
     public function login(Request $request){
         if (!Auth::attempt($request->only('email', 'password'))) {

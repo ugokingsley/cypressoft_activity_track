@@ -15,6 +15,9 @@
                 <x-jet-nav-link href="{{ route('admin-activity') }}" :active="request()->routeIs('activity.admin_index')">
                     {{ __('Admin Dashboard') }}
                 </x-jet-nav-link>
+                <x-jet-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
+                    {{ __('App Users') }}
+                </x-jet-nav-link>
                 @endcan
                 <x-jet-nav-link href="{{ route('activity') }}" :active="request()->routeIs('activity.index')">
                     {{ __('Activity') }}

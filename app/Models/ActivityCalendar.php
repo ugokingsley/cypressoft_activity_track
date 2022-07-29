@@ -12,13 +12,13 @@ class ActivityCalendar extends Model
     use HasFactory;
     use LogsActivity;
 
-
-    protected static $logAttributes = ['activity_day','user_id', 'title'];
-
+    // log changes for the fields
+    protected static $logAttributes = ['activity_day','user_id', 'title','description','image'];
+    // name of log
     protected static $logName = 'Activity';
-
+    // log only change attributes
     protected static $logOnlyDirty = true;
-
+    // record events of the following
     protected static $recordEvents = ['created','updated','deleted'];
 
     public function getDescriptionForEvent(string $eventName):string{

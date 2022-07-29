@@ -22,15 +22,21 @@ class User extends Authenticatable
     use TwoFactorAuthenticatable;
     use LogsActivity;
 
-
+    // log changes for the fields
     protected static $logAttributes = ['id','name','email', 'updated_at'];
-
+    // record events of the following
+    protected static $recordEvents = ['created','updated','deleted'];
+    // name of log
     protected static $logName = 'userAuth';
-
+    // log only change attributes
     protected static $logOnlyDirty = true;
 
-    protected static $recordEvents = ['created','updated','deleted'];
 
+    /**
+     * Get description for events.
+     * @param string $eventName [description of $eventName]
+     * @return string [return description]
+     */
     public function getDescriptionForEvent(string $eventName):string{
         return "user {$eventName}";
     }
@@ -39,7 +45,6 @@ class User extends Authenticatable
     {
         return LogOptions::defaults()
         ->logOnly(['id','name','email', 'created_at']);
-        // Chain fluent methods for configuration options
     }
 
     /**

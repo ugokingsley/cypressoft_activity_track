@@ -13,8 +13,9 @@
                     <th scope="col">Day</th>
                     <th scope="col">Title</th>
                     <th scope="col">Description</th>
-                    <th scope="col">Edit</th>
-                    <th scope="col">Delete</th>
+                    <th scope="col">User</th>
+                    <th scope="col"></th>
+
                 </tr>
                 </thead>
 
@@ -24,7 +25,10 @@
                             <th scope="row">{{ $dt->activity_day }}</th>
                             <td>{{ $dt->title }}</td>
                             <td>{{ $dt->description }}</td>
+                            <td>{{ $dt->user_id }}</td>
+                            <td><a class="btn btn-success" href="{{ route('show', $dt->id) }}">view</a></td>
                             <td><a class="btn btn-success" href="{{ route('edit', $dt->id) }}">edit</a></td>
+
                             <td>
                                 <form class="inline-block" action="{{ route('destroy', $dt->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
                                 <input type="hidden" name="_method" value="DELETE">
@@ -34,6 +38,7 @@
                             </td>
                         </tr>
                     @endforeach
+
                 </tbody>
             </table>
         </div>
